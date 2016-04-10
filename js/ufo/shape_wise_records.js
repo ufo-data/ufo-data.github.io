@@ -1,6 +1,6 @@
 (function() {
 
-  var margin = {top: 20, right: 20, bottom: 50, left: 100},
+  var margin = {top: 30, right: 20, bottom: 40, left: 100},
     width = 600 - margin.left - margin.right,
     height = 470 - margin.top - margin.bottom;
 
@@ -77,6 +77,15 @@ d3.csv("../../data/Shape_Wise_Records.csv",function(error, data) {
       .attr("height", y.rangeBand())
       .attr("x", function(d) { return 0; })
       .attr("width", function(d) { return x(d.records); });
+
+      // Add the title
+  svg.append("text")
+        .attr("x", (width / 2))
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")
+        .style("font-size", "16px")
+        .style("text-decoration", "underline")
+        .text("UFO Reportings - Shapes");
 });
 
 function type(d) {
