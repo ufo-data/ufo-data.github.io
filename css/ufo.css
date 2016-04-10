@@ -1,6 +1,11 @@
 
 chart_div { font: 13px Arial;}
 
+.area {
+fill: lightsteelblue;
+stroke-width: 0;
+}
+
 path {
     stroke: steelblue;
     stroke-width: 1;
