@@ -54,7 +54,7 @@ path {
 }
 
 .dashboard .axis path{
-  stroke: red;
+  stroke: black;
   stroke-width: 1;
   shape-rendering: crispEdges;
 }
