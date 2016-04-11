@@ -23,14 +23,14 @@ chart_div {
   fill-opacity: .8;
   stroke: #fff;
 }
-.area {
+#Exploration .area {
   fill: lightsteelblue;
   stroke-width: 0;
 }
-.bar {
+#Exploration .bar {
   fill: steelblue;
 }
-.bar:hover {
+#Exploration .bar:hover {
   fill: brown;
 }
 #geo_map_wise_trend path {
@@ -38,12 +38,18 @@ chart_div {
   stroke-width: 0.25px;
   fill: grey;
 }
-path {
+
+#Exploration path {
   stroke: steelblue;
   stroke-width: 1;
   fill: none;
 }
 
+/*#us-chart path {
+  stroke: white;
+  stroke-width: 0.25px;
+  fill: grey;
+}*/
 
 
 .axis path, .axis line {

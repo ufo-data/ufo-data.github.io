@@ -10,7 +10,7 @@
   // var islandChart = dc.pieChart("#dc-island-chart");
   var eventDateChart = dc.lineChart("#dashboard-event-date-chart");
   //var geoChart = dc.geoChoroplethChart("#dashboard-geo-map-chart");
-  //var usChart = dc.geoChoroplethChart("#us-chart");
+  var usChart = dc.geoChoroplethChart("#us-chart");
 
   //var moveChart = dc.compositeChart("#monthly-move-chart");
   //var volumeChart = dc.barChart("#monthly-volume-chart");
@@ -268,22 +268,45 @@
     //
 
 
-    // var stateGroupCount = stateDimension.group()
-    //   .reduceCount(function(d) {
-    //     return d.State;
-    //   }) // counts
-    //
-    // geoChart.width(990)
-    //   .height(500)
-    //   .dimension(stateDimension)
-    //   .group(stateGroupCount)
-    //   .colors(d3.scale.quantize().range(
-    //     ["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]))
-    //   .colorDomain([0, 10])
-    //   .overlayGeoJson(us.features, "state", function(d) {
-    //     return d.properties.name;
-    //   });
+    var stateGroupCount = stateDimension.group()
+      .reduceCount(function(d) {
+        return d.State;
+      }) // counts
 
+    var colorPicker = function(d){
+      if(d > 0 && d <= 1000) { return '#E2F2FF';}
+      if(d > 1000 && d < 2000) { return '#C4E4FF';}
+      if(d > 2000 && d < 3000) { return '#9ED2FF';}
+      if(d > 3000 && d < 4000) { return '#81C5FF';}
+      if(d > 4000 && d < 5000) { return '#6BBAFF';}
+      if(d > 5000 && d < 6000) { return '#51AEFF';}
+      if(d > 6000 && d < 7000) { return '#36A2FF';}
+      if(d > 7000 && d < 8000) { return '#1E96FF';}
+      if(d > 8000 && d < 9000) { return '#0089FF';}
+      if(d > 9000 && d < 10000) { return '#0061B5';}
+      if(d > 10000) { return '#0061B5';}
+      // if(d > 0 && d < 3000) { return '#E2F2FF';}
+      // if(d > 0 && d < 4000) { return '#E2F2FF';}
+      // if(d > 0 && d < 5000) { return '#E2F2FF';}
+      // if(d > 0 && d < 6000) { return '#E2F2FF';}
+      // if(d > 0 && d < 7000) { return '#E2F2FF';}
+      // if(d > 0 && d < 8000) { return '#E2F2FF';}
+      // if(d > 0 && d < 8000) { return '#E2F2FF';}
+      // if(d > 0 && d < 8000) { return '#E2F2FF';}
+    }
+    usChart.width(990)
+      .height(500)
+      .dimension(stateDimension)
+      .group(stateGroupCount)
+      .colors(d3.scale.quantize().range(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]))
+      .colorDomain([0, 9315])
+      .colorCalculator(function (d) { return d ? colorPicker(d) : '#ccc'; })
+      .overlayGeoJson(statesJson.features, "state", function(d) {
+        return d.properties.name;
+      })
+      .title(function(d) {
+        return "State: " + d.key + " Reportings : " + (d.value ? d.value : 0);
+      });
     // Render the Charts
     dc.renderAll();
 

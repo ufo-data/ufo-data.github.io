@@ -64,22 +64,22 @@
     );
 
     d3.json("../../data/us-states.json", function(statesJson) {
-    
-      // usChart.width(990)
-      //   .height(500)
-      //   .dimension(states)
-      //   .group(stateRaisedSum)
-      //   .colors(d3.scale.quantize().range(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]))
-      //   .colorDomain([0, 200])
-      //   .colorCalculator(function(d) {
-      //     return d ? usChart.colors()(d) : '#ccc';
-      //   })
-      //   .overlayGeoJson(statesJson.features, "state", function(d) {
-      //     return d.properties.name;
-      //   })
-      //   .title(function(d) {
-      //     return "State: " + d.key + "\nTotal Amount Raised: " + numberFormat(d.value ? d.value : 0) + "M";
-      //   });
+
+      usChart.width(990)
+        .height(500)
+        .dimension(states)
+        .group(stateRaisedSum)
+        .colors(d3.scale.quantize().range(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]))
+        .colorDomain([0, 200])
+        .colorCalculator(function(d) {
+          return d ? usChart.colors()(d) : '#ccc';
+        })
+        .overlayGeoJson(statesJson.features, "state", function(d) {
+          return d.properties.name;
+        })
+        .title(function(d) {
+          return "State: " + d.key + "\nTotal Amount Raised: " + numberFormat(d.value ? d.value : 0) + "M";
+        });
 
       industryChart.width(990)
         .height(200)
