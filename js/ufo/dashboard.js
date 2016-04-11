@@ -4,30 +4,37 @@
   // Create the dc.js chart objects & link to div
   var dataTable = dc.dataTable("#dashboard-table-graph");
   var durationChart = dc.barChart("#dashboard-duration-chart");
+  var eventYearChart = dc.barChart("#dashboard-event-year-chart");
   // var depthChart = dc.barChart("#dc-depth-chart");
   var shapeChart = dc.rowChart("#dashboard-shape-chart");
   // var islandChart = dc.pieChart("#dc-island-chart");
   var eventDateChart = dc.lineChart("#dashboard-event-date-chart");
-  var geoChart = dc.geoChoroplethChart("#dashboard-geo-map-chart");
+  //var geoChart = dc.geoChoroplethChart("#dashboard-geo-map-chart");
+  //var usChart = dc.geoChoroplethChart("#us-chart");
 
-  // load data from a csv file
-  d3.csv("../../data/ufo_dashboard_simple.csv", function(data) {
+  //var moveChart = dc.compositeChart("#monthly-move-chart");
+  //var volumeChart = dc.barChart("#monthly-volume-chart");
+
+  queue()
+    .defer(d3.json, "../../data/us-states.json")
+    .defer(d3.csv, "../../data/vc.csv")
+    .defer(d3.csv, "../../data/ufo_dashboard.csv")
+    .await(ready);
+
+  function ready(error, statesJson, vc, data) {
+    if (error) throw error;
+
+
+
 
     // format our data
     var eventDateFormat = d3.time.format("%Y-%m-%d");
-    var dtgFormat = d3.time.format("%Y-%m-%dT%H:%M:%S");
-    var dtgFormat2 = d3.time.format("%a %e %b %H:%M");
+    var numberFormat = d3.format(".2f");
 
     data.forEach(function(d) {
       //console.log(d.EventDate);
       d.EventDate = eventDateFormat.parse(d.EventDate);
-      //console.log(d.EventDate);
-      // d.dtg1  = d.origintime.substr(0,10) + " " + d.origintime.substr(11,8);
-      // d.dtg   = dtgFormat.parse(d.origintime.substr(0,19));
-      // d.lat   = +d.latitude;
-      // d.long  = +d.longitude;
       d.Duration = d3.round(+d.Duration, 1);
-      // d.depth = d3.round(+d.depth,0);
 
     });
 
@@ -74,6 +81,12 @@
         function(d) {
           return d.EventDate;
         },
+        function(d) {
+          return d.Shape;
+        },
+        function(d) {
+          return d.Duration;
+        }
 
       ])
       .sortBy(function(d) {
@@ -98,17 +111,19 @@
       })
       .dimension(durationDimension)
       .group(durationGroupCount)
+      .elasticY(true)
       .transitionDuration(500)
       .centerBar(true)
       .gap(2) // 65 = norm
       //    .filter([3, 5])
       .x(d3.scale.linear().domain([1, 50]))
-      .elasticY(true)
-      .xAxis().tickFormat();
+      .xAxis().tickFormat(function(v) {
+        return v;
+      });
 
-    //Duration Chart
+    //Event By Date Chart
     var eventByDate = facts.dimension(function(d) {
-      return d3.time.hour(d.EventDate);
+      return d.EventDate;
     });
 
 
@@ -128,16 +143,81 @@
       }).dimension(eventByDate)
       .group(eventDateGroupCount)
       .transitionDuration(500)
-      .elasticY(true)
       .x(d3.time.scale().domain(d3.extent(data, function(d) {
         return d.EventDate;
-      }))).xAxis();
+      })))
+      .elasticY(true)
+      .xAxis().tickFormat();
+
+    //Event By Year Chart
+    var eventByYear = facts.dimension(function(d) {
+      return d3.time.month(d.EventDate);
+    });
+
+
+    var eventYearGroupCount = eventByYear.group()
+      .reduceCount(function(d) {
+        return d.EventDate;
+      }) // counts
+
+    eventYearChart.width(960)
+      .height(40)
+      .margins({
+        top: 0,
+        right: 50,
+        bottom: 20,
+        left: 40
+      })
+      .dimension(eventByYear)
+      .group(eventYearGroupCount)
+      .centerBar(true)
+      .gap(0)
+      .x(d3.time.scale().domain(d3.extent(data, function(d) {
+        return d.EventDate;
+      })))
+      .round(d3.time.month.round)
+      .xUnits(d3.time.months)
+      .renderlet(function(chart) {
+        chart.select("g.y").style("display", "none");
+        eventDateChart.filter(chart.filter());
+      })
+      .on("filtered", function(chart) {
+        dc.events.trigger(function() {
+          eventDateChart.focus(chart.filter());
+        });
+      })
+      .xAxis()
+      .tickFormat();
+
+
+    // time graph
+    // eventYearChart.width(960)
+    //   .height(150)
+    //   .margins({
+    //     top: 10,
+    //     right: 10,
+    //     bottom: 20,
+    //     left: 40
+    //   }).dimension(eventByYear)
+    //   .group(eventYearGroupCount)
+    //   .transitionDuration(500)
+    //   .x(d3.time.scale().domain(d3.extent(data, function(d) {
+    //     return d3.time.year(d.EventDate);
+    //   })))
+    //   .elasticX(true)
+    //   .xAxis();
+
 
     //Shape Charts
-    var shapeCountGroup = shapeDimension.group();
+    var shapeCountGroup = shapeDimension.group()
+      .reduceCount(function(d) {
+        return d.Shape;
+      })
+
+
     // row chart day of week
     shapeChart.width(300)
-      .height(220)
+      .height(200)
       .margins({
         top: 5,
         left: 10,
@@ -145,6 +225,10 @@
         bottom: 20
       }).dimension(shapeDimension)
       .group(shapeCountGroup)
+      .rowsCap(5)
+      .ordering(function(d) {
+        return -d.value;
+      })
       .colors(d3.scale.category10())
       .label(function(d) {
         return d.key;
@@ -154,137 +238,59 @@
       }).elasticX(true)
       .xAxis().ticks(4);
 
+
+
+
+    // //GeoMap
+    // var data = crossfilter(vc);
+    // var states = data.dimension(function(d) {
+    //   return d["State"];
+    // });
+    // var stateRaisedSum = states.group().reduceSum(function(d) {
+    //   return d["Raised"];
+    // });
+    // //
+    // usChart.width(990)
+    //   .height(500)
+    //   .dimension(states)
+    //   .group(stateRaisedSum)
+    //   .colors(d3.scale.quantize().range(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]))
+    //   .colorDomain([0, 200])
+    //   .colorCalculator(function(d) {
+    //     return d ? usChart.colors()(d) : '#fff';
+    //   })
+    //   .overlayGeoJson(statesJson.features, "state", function(d) {
+    //     return d.properties.name;
+    //   })
+    //   .title(function(d) {
+    //     return "State: " + d.key + "\nTotal Amount Raised: " + numberFormat(d.value ? d.value : 0) + "M";
+    //   });
+    //
+
+
+    // var stateGroupCount = stateDimension.group()
+    //   .reduceCount(function(d) {
+    //     return d.State;
+    //   }) // counts
+    //
+    // geoChart.width(990)
+    //   .height(500)
+    //   .dimension(stateDimension)
+    //   .group(stateGroupCount)
+    //   .colors(d3.scale.quantize().range(
+    //     ["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]))
+    //   .colorDomain([0, 10])
+    //   .overlayGeoJson(us.features, "state", function(d) {
+    //     return d.properties.name;
+    //   });
+
     // Render the Charts
     dc.renderAll();
 
+  }
 
-    // var magValueGroupSum = magValue.group()
-    //   .reduceSum(function(d) { return d.mag; });	// sums
-
-    //
-    // // for Depth
-    // var depthValue = facts.dimension(function (d) {
-    //   return d.depth;
-    // });
-    // var depthValueGroup = depthValue.group();
-    //
-    // // time chart
-    // var volumeByHour = facts.dimension(function(d) {
-    //   return d3.time.hour(d.dtg);
-    // });
-    // var volumeByHourGroup = volumeByHour.group()
-    //   .reduceCount(function(d) { return d.dtg; });
-
-    // row chart Day of Week
-    // var dayOfWeek = facts.dimension(function (d) {
-    //   var day = d.dtg.getDay();
-    //   switch (day) {
-    //     case 0:
-    //       return "0.Sun";
-    //     case 1:
-    //       return "1.Mon";
-    //     case 2:
-    //       return "2.Tue";
-    //     case 3:
-    //       return "3.Wed";
-    //     case 4:
-    //       return "4.Thu";
-    //     case 5:
-    //       return "5.Fri";
-    //     case 6:
-    //       return "6.Sat";
-    //   }
-    // });
-    // var dayOfWeekGroup = dayOfWeek.group();
-    //
-    // // Pie Chart
-    // var islands = facts.dimension(function (d) {
-    //   if (d.lat <= -40.555907 && d.long <= 174.590607)
-    //     return "South";
-    //   else
-    //     return "North";
-    //   });
-    // var islandsGroup = islands.group();
-    //
-    // // Create datatable dimension
-    // var timeDimension = facts.dimension(function (d) {
-    //   return d.dtg;
-    // });
-
-    // Setup the charts
-
-    // count all the facts
-    // dc.dataCount(".dc-data-count")
-    //   .dimension(facts)
-    //   .group(all);
-
-    // Magnitide Bar Graph Counted
-    //   magnitudeChart.width(480)
-    //     .height(150)
-    //     .margins({top: 10, right: 10, bottom: 20, left: 40})
-    //     .dimension(magValue)
-    //     .group(magValueGroupCount)
-    // 	.transitionDuration(500)
-    //     .centerBar(true)
-    // 	.gap(65)  // 65 = norm
-    // //    .filter([3, 5])
-    //     .x(d3.scale.linear().domain([0.5, 7.5]))
-    // 	.elasticY(true)
-    // 	.xAxis().tickFormat();
-
-    // Depth bar graph
-    // depthChart.width(480)
-    //   .height(150)
-    //   .margins({top: 10, right: 10, bottom: 20, left: 40})
-    //   .dimension(depthValue)
-    //   .group(depthValueGroup)
-    // .transitionDuration(500)
-    //   .centerBar(true)
-    // .gap(1)
-    //   .x(d3.scale.linear().domain([0, 100]))
-    // .elasticY(true)
-    // .xAxis().tickFormat(function(v) {return v;});
-
-    // time graph
-    //   timeChart.width(960)
-    //     .height(150)
-    //     .transitionDuration(500)
-    // //    .mouseZoomable(true)
-    //     .margins({top: 10, right: 10, bottom: 20, left: 40})
-    //     .dimension(volumeByHour)
-    //     .group(volumeByHourGroup)
-    // //    .brushOn(false)			// added for title
-    //     .title(function(d){
-    //       return dtgFormat2(d.data.key)
-    //       + "\nNumber of Events: " + d.data.value;
-    //       })
-    // 	.elasticY(true)
-    //     .x(d3.time.scale().domain(d3.extent(data, function(d) { return d.dtg; })))
-    //     .xAxis();
-
-    // row chart day of week
-    // dayOfWeekChart.width(300)
-    //   .height(220)
-    //   .margins({top: 5, left: 10, right: 10, bottom: 20})
-    //   .dimension(dayOfWeek)
-    //   .group(dayOfWeekGroup)
-    //   .colors(d3.scale.category10())
-    //   .label(function (d){
-    //      return d.key.split(".")[1];
-    //   })
-    //   .title(function(d){return d.value;})
-    //   .elasticX(true)
-    //   .xAxis().ticks(4);
-
-    // islands pie chart
-    // islandChart.width(250)
-    //   .height(220)
-    //   .radius(100)
-    //   .innerRadius(30)
-    //   .dimension(islands)
-    //   .title(function(d){return d.value;})
-    //   .group(islandsGroup);
-
-
-  });
+  // load data from a csv file
+  // d3.csv("../../data/ufo_dashboard_simple.csv", function(data) {
+  //
+  // });
 })();

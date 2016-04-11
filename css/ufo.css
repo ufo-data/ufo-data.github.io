@@ -43,12 +43,24 @@ path {
   stroke-width: 1;
   fill: none;
 }
+
+
+
 .axis path, .axis line {
   fill: none;
   stroke: grey;
   stroke-width: 1;
   shape-rendering: crispEdges;
 }
+
+.dashboard .axis path{
+  stroke: red;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+
+
 div.tooltip {
   position: absolute;
   text-align: center;
