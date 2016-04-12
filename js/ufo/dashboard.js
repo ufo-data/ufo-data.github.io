@@ -114,9 +114,9 @@
       .elasticY(true)
       .transitionDuration(500)
       .centerBar(true)
-      .gap(2) // 65 = norm
+      .gap(5) // 65 = norm
       //    .filter([3, 5])
-      .x(d3.scale.linear().domain([1, 50]))
+      .x(d3.scale.linear().domain([0, 5000]))
       .xAxis().tickFormat(function(v) {
         return v;
       });
