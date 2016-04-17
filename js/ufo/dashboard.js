@@ -11,6 +11,7 @@
   var eventDateChart = dc.lineChart("#dashboard-event-date-chart");
   //var geoChart = dc.geoChoroplethChart("#dashboard-geo-map-chart");
   var usChart = dc.geoChoroplethChart("#us-chart");
+  var div = d3.select("#TooltipSection").append("div").attr("class", "tooltip").style("opacity", 0);
 
   //var moveChart = dc.compositeChart("#monthly-move-chart");
   //var volumeChart = dc.barChart("#monthly-volume-chart");
@@ -30,6 +31,7 @@
     // format our data
     var eventDateFormat = d3.time.format("%Y-%m-%d");
     var numberFormat = d3.format(".2f");
+    var eventDateTimeFormat = d3.time.format("%Y-%m-%d");
 
     data.forEach(function(d) {
       //console.log(d.EventDate);
@@ -67,6 +69,8 @@
       return d.Shape;
     });
 
+
+
     // Table of earthquake data
     dataTable.width(960).height(800)
       .dimension(eventDateDimension)
@@ -79,7 +83,7 @@
           return d.State;
         },
         function(d) {
-          return d.EventDate;
+          return eventDateTimeFormat(d.EventDate);
         },
         function(d) {
           return d.Shape;
@@ -273,18 +277,40 @@
         return d.State;
       }) // counts
 
-    var colorPicker = function(d){
-      if(d > 0 && d <= 1000) { return '#E2F2FF';}
-      if(d > 1000 && d < 2000) { return '#C4E4FF';}
-      if(d > 2000 && d < 3000) { return '#9ED2FF';}
-      if(d > 3000 && d < 4000) { return '#81C5FF';}
-      if(d > 4000 && d < 5000) { return '#6BBAFF';}
-      if(d > 5000 && d < 6000) { return '#51AEFF';}
-      if(d > 6000 && d < 7000) { return '#36A2FF';}
-      if(d > 7000 && d < 8000) { return '#1E96FF';}
-      if(d > 8000 && d < 9000) { return '#0089FF';}
-      if(d > 9000 && d < 10000) { return '#0061B5';}
-      if(d > 10000) { return '#0061B5';}
+    var colorPicker = function(d) {
+      if (d > 0 && d <= 1000) {
+        return '#E2F2FF';
+      }
+      if (d > 1000 && d < 2000) {
+        return '#C4E4FF';
+      }
+      if (d > 2000 && d < 3000) {
+        return '#9ED2FF';
+      }
+      if (d > 3000 && d < 4000) {
+        return '#81C5FF';
+      }
+      if (d > 4000 && d < 5000) {
+        return '#6BBAFF';
+      }
+      if (d > 5000 && d < 6000) {
+        return '#51AEFF';
+      }
+      if (d > 6000 && d < 7000) {
+        return '#36A2FF';
+      }
+      if (d > 7000 && d < 8000) {
+        return '#1E96FF';
+      }
+      if (d > 8000 && d < 9000) {
+        return '#0089FF';
+      }
+      if (d > 9000 && d < 10000) {
+        return '#0061B5';
+      }
+      if (d > 10000) {
+        return '#0061B5';
+      }
       // if(d > 0 && d < 3000) { return '#E2F2FF';}
       // if(d > 0 && d < 4000) { return '#E2F2FF';}
       // if(d > 0 && d < 5000) { return '#E2F2FF';}
@@ -295,12 +321,14 @@
       // if(d > 0 && d < 8000) { return '#E2F2FF';}
     }
     usChart.width(990)
-      .height(500)
+      .height(550)
       .dimension(stateDimension)
       .group(stateGroupCount)
       .colors(d3.scale.quantize().range(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]))
       .colorDomain([0, 9315])
-      .colorCalculator(function (d) { return d ? colorPicker(d) : '#ccc'; })
+      .colorCalculator(function(d) {
+        return d ? colorPicker(d) : '#ccc';
+      })
       .overlayGeoJson(statesJson.features, "state", function(d) {
         return d.properties.name;
       })
@@ -309,6 +337,91 @@
       });
     // Render the Charts
     dc.renderAll();
+
+    var range_data = [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 1000];
+    var range_color = ["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]
+    var width = 400
+    var height = 40
+    var padding = 5
+    var margin_left = 10
+    var svg = d3.select("#range-marker").append("svg")
+      .attr("width", width - margin_left)
+      .attr("height", height);
+
+    var g = svg.append("g");
+      //.attr("class", "key")
+      //.attr("transform", "translate( 50," + height * 3 / 4 + ")");
+
+
+    var xScale = d3.scale.linear()
+      .domain([0, 10000])
+      .range([0, width - margin_left]);
+
+    // var xAxis = d3.svg.axis()
+    //   .scale(xScale)
+    //   .orient("bottom")
+    //   .tickSize(14);
+
+
+    g.call(d3.svg.axis()
+      .scale(xScale)
+      .orient("bottom")
+      .tickSize(5)
+      .tickValues([1000,5000,9000])
+      .tickFormat(function(d) {
+        return d;
+      }));
+
+    //g.call(xAxis);
+    g.selectAll("rect")
+      .data(range_data)
+      .enter().append("rect")
+      .attr("height", 5)
+      .attr("x", function(d, i) {
+        return i * ((width - margin_left) / range_data.length);
+      })
+      .attr("width", function(d) {
+        return (width - margin_left) / range_data.length;
+      })
+      .style("fill", function(d, i) {
+        return range_color[i];
+      })
+      .on("mouseover", function(d,i) {
+        div.transition()
+          .duration(500)
+          .style("opacity", 0);
+        div.transition()
+          .duration(200)
+          .style("opacity", .9);
+        div.html("<br/>Reportings:" +
+            range_data[i])
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 30) + "px");
+      })
+    .on("mouseout", function(d) {
+      div.transition()
+            .duration(100)
+            .style("opacity", 0);
+    });
+
+    // var x = d3.scale.linear()
+    //   .domain([0, 10000])
+    //   .range([0, width]);
+    //
+    // var xAxis = d3.svg.axis()
+    //   .scale(x)
+    //   .orient("bottom")
+    //   .tickSize(14)
+    //   .tickValues(range_data)
+    //   .tickFormat(function(d) {
+    //     return d; });
+    //
+    //
+    // g.call(xAxis).append("text")
+    //   .attr("class", "caption")
+    //   .attr("y", -6)
+    //   .text("UFO Reportings Count");
+
 
   }
 

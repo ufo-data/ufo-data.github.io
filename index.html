@@ -118,7 +118,7 @@
       <!-- Geo Map -->
       <div class="row">
         <div class="col-lg-12 text-center">
-          <p>Geo map suggests more UFO reportings in california.</p>
+          <p>Geo map suggests more UFO reportings in coastal states such as <code>california</code>.</p>
         </div>
       </div>
 
@@ -173,7 +173,7 @@
           <br/>
           <br/>
           <br/>
-          <p>People reported different shapes for UFOs.
+          <p>People reported different shapes for UFOs ranging from <code>circle</code>, <code>triangle</code>,<code>fireball</code>.Mostly reported bright <code>light</code>.
             <p>
         </div>
         <div class="col-lg-6">
@@ -204,10 +204,37 @@
           <br/>
           <br/>
           <br/>
-          <p>The spikes in UFO reportings concides with Indenpendence Day Celebrations (4th July) and Missile Testing By Navy in Pacific Ocean ( 7th November 2015).
+          <p>The spikes in UFO reportings concides with <code>Independence Day Celebrations (4th July)</code> and <code>Missile Testing By Navy in Pacific Ocean ( 7th November 2015)</code>.
             <p>
         </div>
       </div>
+
+
+      <!-- Word Cloud -->
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h3>Reportings Word Cloud</h3>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 text-right">
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <p>Top words reported by people are <code>light</code>, <code>object</code>, <code>round</code> , <code>sight</code> as shown by the word cloud created on top word tokens.
+            <p>
+        </div>
+        <div class="col-lg-6">
+          <!--Trend : Year Wise Event -->
+
+          <div id="token_cloud">
+          </div>
+        </div>
+
+      </div>
+
 
 
     </div>
@@ -240,14 +267,20 @@
         </div>
       </div>
 
-      <div class="row dashboard">
-        <div id="us-chart">
-        <h4>Geo Map</h4>
-           Current filter:
-            <span class="filter"></span>
+      <div class="row dashboard" margin-left: 5px;>
+        <div  id="us-chart">
+          <h4>Geo Map</h4>
+          Current filter:
+          <span class="filter"></span>
 
 
           <div class="clearfix"></div>
+        </div>
+      </div>
+
+      <div class="row dashboard" margin-top: 5px;>
+        <div class="span12 pull-right"  id="range-marker">
+
         </div>
       </div>
 
@@ -386,6 +419,8 @@
   <script src="js/d3/d3.min.js"></script>
   <script src="http://d3js.org/topojson.v1.min.js"></script>
   <script src="http://d3js.org/queue.v1.min.js"></script>
+  <script src="js/d3.layout.cloud.js"></script>
+
 
   <!-- crossfilter -->
   <script src="js/crossfilter.min.js"></script>
@@ -421,7 +456,7 @@
   <script src="js/ufo/geo_map.js"></script>
   <script src="js/ufo/typed_names.js"></script>
   <script src="js/ufo/dashboard.js"></script>
-
+  <script src="js/ufo/word-cloud.js"></script>
   <!-- <script src="js/ufo/dashboard_geo_map.js"></script> -->
 </body>
 
