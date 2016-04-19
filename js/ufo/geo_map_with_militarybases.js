@@ -16,14 +16,14 @@
 
   var rateById = d3.map();
 
-  var svg = d3.select("#geo_map_wise_trend_with_population").append("svg")
+  var svg = d3.select("#geo_map_wise_trend_with_military").append("svg")
     .attr("width", width)
     .attr("height", height);
 
   queue()
     .defer(d3.json, "../../data/us.json")
     .defer(d3.json, "../../data/us-state-ufo-records.json")
-    .defer(d3.csv, "../../data/fips_data_population.csv", function(d) { rateById.set(d.id, +d.rate); })
+    .defer(d3.csv, "../../data/fips_data_military.csv", function(d) { rateById.set(d.id, +d.rate); })
     .await(ready);
 
   function ready(error, us, centroid, fips) {
@@ -32,13 +32,13 @@
     }
 
 
-    var max_population_count = d3.max(centroid.features, function(d) {
-      return d.properties.population;
+    var max_military_count = d3.max(centroid.features, function(d) {
+      return d.properties.military;
     });
 
+    
 
-
-    var color_scale = d3.scale.quantize().domain([0, max_population_count]).range(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]);
+    var color_scale = d3.scale.quantize().domain([0, max_military_count]).range(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]);
 
     var radius = d3.scale.sqrt()
       .domain([0, d3.max(centroid.features, function(d) {
@@ -108,8 +108,8 @@
             d.properties.name +
             "<br/>Reportings:" +
             d.properties.records +
-            "<br/>Population:" +
-            d.properties.population
+            "<br/>Military Bases:" +
+            d.properties.military
           )
           .style("left", (d3.event.pageX) + "px")
           .style("top", (d3.event.pageY - 30) + "px");

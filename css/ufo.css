@@ -14,6 +14,17 @@
   color: 'red';
 }
 
+.q0-9 { fill:rgb(247,251,255); }
+.q1-9 { fill:rgb(222,235,247); }
+.q2-9 { fill:rgb(198,219,239); }
+.q3-9 { fill:rgb(158,202,225); }
+.q4-9 { fill:rgb(107,174,214); }
+.q5-9 { fill:rgb(66,146,198); }
+.q6-9 { fill:rgb(33,113,181); }
+.q7-9 { fill:rgb(8,81,156); }
+.q8-9 { fill:rgb(8,48,107); }
+
+
 chart_div {
   font: 13px Arial;
 }
@@ -22,7 +33,7 @@ chart_div {
   stroke: #fff;
 }
 #geo_map_wise_trend .symbol {
-  fill: steelblue;
+  fill: red;
   fill-opacity: .8;
   stroke: #fff;
 }
@@ -33,21 +44,61 @@ chart_div {
   fill: grey;
 }
 
+
+#geo_map_wise_trend_with_military .counties {
+  fill: none;
+  stroke-opacity: 0;
+}
+
+#geo_map_wise_trend_with_military .states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+
+
+#geo_map_wise_trend_with_military .symbol {
+  fill: red;
+  fill-opacity: .8;
+  stroke: #fff;
+}
+
+
+
+#geo_map_wise_trend_with_population .counties {
+  fill: none;
+  stroke-opacity: 0;
+}
+
 #geo_map_wise_trend_with_population .states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+
+
+#geo_map_wise_trend_with_population .symbol {
+  fill: red;
+  fill-opacity: .8;
+  stroke: #fff;
+}
+
+
+/*#geo_map_wise_trend_with_military .states {
   fill: #ccc;
   stroke: #fff;
 }
-#geo_map_wise_trend_with_population .symbol {
+#geo_map_wise_trend_with_military .symbol {
   fill: steelblue;
   fill-opacity: .8;
   stroke: #fff;
 }
 
-#geo_map_wise_trend_with_population path {
+#geo_map_wise_trend_with_military path {
   stroke: white;
   stroke-width: 0.25px;
   fill: grey;
-}
+}*/
 
 
 #Exploration .area {

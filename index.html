@@ -82,8 +82,8 @@
           <div class="intro-text">
             <span class="name">UFO in You Backyard</span>
             <hr class="star-light">
-            <span class="skills">Team Members : </span>
-            <span class="skills typed-element"></span>
+            <span class="skills">Data Visualization of UFO Sightings Data</span>
+            <!-- <span class="skills typed-element"></span> -->
 
           </div>
         </div>
@@ -99,7 +99,7 @@
 
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2>Exploration : UFO Reportings</h2>
+          <h2>Exploration : UFO Sightings</h2>
           <hr class="star-primary">
         </div>
       </div>
@@ -107,7 +107,7 @@
 
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h3>UFO Reportings Geo-Map</h3>
+          <h3>UFO Sightings Geo-Map</h3>
         </div>
       </div>
 
@@ -121,19 +121,19 @@
           </div>
         </div>
 
-        <div class="col-lg-6 text-left vcenter">
+        <div class="col-lg-6 text-left">
           <br/>
           <br/>
           <br/>
           <br/>
+
           <br/>
           <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <p>Geo map suggests more UFO reportings in coastal states such as
-            <code>california</code>.</p>
+          <p>We used Geo Map to see the sightings distribution across US.
+            The size of red dots on the geo map is directly proportional to number of sightings in the that state.
+            Geo map suggests more UFO sightings in coastal states such as
+            <code>california</code>. </p>
+            <small class="text-primary">Use mousever on red dot to know the sightings count for each state.</small>
         </div>
       </div>
 
@@ -148,12 +148,11 @@
           <br/>
           <br/>
           <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <p>Here is the Geo-Map of UFO Reportings normalized by state population.</p>
-          <p class="muted  small">Source: U.S. Census Bureau, Population Division</p>
+
+          <p>We added the population information to see if states with more population have more sightings.
+          The choropleth map shows the population using the color. Darker shade implies more population.
+          <p class="muted  small">Source: U.S. Census Bureau, Population Division, 2016</p>
+          <small class="text-primary">Use mousever on red dot to know the sightings count for each state alog with its population.</small>
         </div>
         <div class="col-lg-6">
           <!--Trend : Geo Map Wise Event -->
@@ -164,11 +163,34 @@
 
       </div>
 
+      <div class="row">
+        <div class="col-lg-6 text-right">
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+
+          <p>We added the military base information to see if states with more military bases have more sightings.
+          The choropleth map shows the number of military bases using the color. Darker shade implies more military installations.
+          <p class="muted  small">Source: U.S. Military Bases, Bureau of Transportation Statistics</p>
+          <small class="text-primary">Use mousever on red dot to know the sightings count for each state alog with its military installation's count.</small>
+        </div>
+        <div class="col-lg-6">
+          <!--Trend : Geo Map Wise Event -->
+          <div id="geo_map_wise_trend_with_military">
+          </div>
+        </div>
+
+
+      </div>
+
 
 
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h3>UFO Reportings Over The Years</h3>
+          <h3>UFO Sightings Over The Years</h3>
 
         </div>
       </div>
@@ -186,7 +208,7 @@
           <br/>
           <br/>
           <br/>
-          <p>UFO Reportings have increased over the years.
+          <p>UFO sightings have increased over the years.
             <p>
         </div>
       </div>
@@ -241,7 +263,7 @@
           <br/>
           <br/>
           <br/>
-          <p>The spikes in UFO reportings concides with
+          <p>The spikes in UFO sightings concides with
             <code>Independence Day Celebrations (4th July)</code> and
             <code>Missile Testing By Navy in Pacific Ocean ( 7th November 2015)</code>.
             <p>
@@ -252,7 +274,7 @@
       <!-- Word Cloud -->
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h3>Reportings Word Cloud</h3>
+          <h3>Sightings Word Cloud</h3>
 
         </div>
       </div>
@@ -288,12 +310,12 @@
 
       <div class="row">
         <div class="col-lg-4 text-left">
-          <h5><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard : UFO Reportings</h4>
+          <h5><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard : UFO Sightings</h4>
         </div>
 
         <div class="col-lg-8 text-right pull-right">
           <div class="dashboard-data-count text-right pull-right">
-            <h5>UFO Reportings:
+            <h5>UFO Sightings:
               <span>
                 <span class="filter-count"></span>
                 selected out of
@@ -310,7 +332,7 @@
         <div class="col-lg-6">
           <!-- Geo Map -->
           <div class="panel panel-primary">
-            <div class="panel-heading"> <i class="fa fa-map-marker" aria-hidden="true"></i> State Wise Reportings Counts - Geo Map</div>
+            <div class="panel-heading"> <i class="fa fa-map-marker" aria-hidden="true"></i> State Wise Sightings Counts - Geo Map</div>
             <div class="panel-body">
               <div id="us-chart">
                 Current filter:
@@ -327,7 +349,7 @@
         <div class="col-lg-6">
           <!-- Duration Column -->
           <div class="panel panel-primary">
-            <div class="panel-heading"><i class="fa fa-camera-retro" aria-hidden="true"></i> Reportings Counts Per Day</div>
+            <div class="panel-heading"><i class="fa fa-camera-retro" aria-hidden="true"></i> Sightings Counts Per Day</div>
             <div class="panel-body">
               <div class='pull-center' id='dashboard-event-date-chart'>
                 <div class="clearfix"></div>
@@ -342,7 +364,7 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="panel panel-primary">
-                <div class="panel-heading"><i class="fa fa-hourglass-half" aria-hidden="true"></i>  Reportings by Duration</div>
+                <div class="panel-heading"><i class="fa fa-hourglass-half" aria-hidden="true"></i>  Sightings by Duration</div>
                 <div class="panel-body">
                   <div id='dashboard-duration-chart'>
                     <div class="clearfix"></div>
@@ -367,7 +389,7 @@
 
       <div class="row">
         <div class="panel panel-primary">
-          <div class="panel-heading"><i class="fa fa-user" aria-hidden="true"></i> Top 10 Reportings</div>
+          <div class="panel-heading"><i class="fa fa-user" aria-hidden="true"></i> Top 10 Sightings</div>
           <div class="panel-body">
             <table class='table table-hover' id='dashboard-table-graph'>
               <thead>
@@ -403,7 +425,11 @@
       </div>
       <div class="row">
         <div class="col-lg-4 col-lg-offset-2">
-          <p>This is a classroom data visualization project to showcase the use of <a href="https://d3js.org/" target="_blank">D3.js</a> and other libraries (<a href="http://square.github.io/crossfilter/" target="_blank">crossfilter.js</a> , <a href="https://dc-js.github.io/dc.js/" target="_blank">dc.js</a> ) to create interactive graphics.</p>
+          <p>This is a classroom data visualization project to showcase the use of <a href="https://d3js.org/" target="_blank">D3.js</a> and other libraries (<a href="http://square.github.io/crossfilter/" target="_blank">crossfilter.js</a> , <a href="https://dc-js.github.io/dc.js/" target="_blank">dc.js</a> ) to create interactive graphics.
+          </p>
+          <br/>
+          <p>
+            <samp>Team Members : Abhishek Kumar, Ritesh Soni, Lucas Dan</samp></p>
         </div>
         <div class="col-lg-4">
           <p>Data is extracted from National UFO Reporting Center website and then processed using Pandas.</p>
@@ -504,6 +530,7 @@
   <script src="js/ufo/year_2015_analysis.js"></script>
   <script src="js/ufo/geo_map.js"></script>
   <script src="js/ufo/geo_map_with_population.js"></script>
+  <script src="js/ufo/geo_map_with_militarybases.js"></script>
   <script src="js/ufo/typed_names.js"></script>
   <script src="js/ufo/dashboard.js"></script>
   <script src="js/ufo/word-cloud.js"></script>
