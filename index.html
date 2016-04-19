@@ -18,7 +18,7 @@
   <link href="css/freelancer.css" rel="stylesheet">
 
   <!-- Custom Fonts -->
-  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
   <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
   <link href="css/ufo.css" rel="stylesheet">
@@ -95,8 +95,9 @@
 
 
   <!-- Exploration Grid Section -->
+  <div id="TooltipSection"></div>
   <section id="Exploration">
-    <div class="container">
+    <div class="container-fluid" style="{margin-left:20px; margin-right:20px}">
 
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -109,28 +110,61 @@
       <div class="row">
         <div class="col-lg-12 text-center">
           <h3>UFO Reportings Geo-Map</h3>
-
         </div>
       </div>
 
-      <div id="TooltipSection"></div>
+
 
       <!-- Geo Map -->
       <div class="row">
-        <div class="col-lg-12 text-center">
-          <p>Geo map suggests more UFO reportings in coastal states such as <code>california</code>.</p>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
           <!--Trend : Geo Map Wise Event -->
           <div id="geo_map_wise_trend">
           </div>
         </div>
 
+        <div class="col-lg-6 text-left vcenter">
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <p>Geo map suggests more UFO reportings in coastal states such as
+            <code>california</code>.</p>
+        </div>
       </div>
+
+
+
+
+      <div class="row">
+        <div class="col-lg-6 text-right">
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <p>Here is the Geo-Map of UFO Reportings normalized by state population.</p>
+        </div>
+        <div class="col-lg-6">
+          <!--Trend : Geo Map Wise Event -->
+          <div id="geo_map_wise_trend_with_population">
+          </div>
+        </div>
+
+
+      </div>
+
 
 
       <div class="row">
@@ -148,7 +182,7 @@
           <div id="event_year_wise_trend">
           </div>
         </div>
-        <div class="col-lg-6 text-right">
+        <div class="col-lg-6 text-left">
           <br/>
           <br/>
           <br/>
@@ -168,12 +202,16 @@
 
       <!-- Shape Wise Event -->
       <div class="row">
-        <div class="col-lg-6 text-left">
+        <div class="col-lg-6 text-right">
           <br/>
           <br/>
           <br/>
           <br/>
-          <p>People reported different shapes for UFOs ranging from <code>circle</code>, <code>triangle</code>,<code>fireball</code>.Mostly reported bright <code>light</code>.
+          <p>People reported different shapes for UFOs ranging from
+            <code>circle</code>,
+            <code>triangle</code>,
+            <code>fireball</code>.Mostly reported bright
+            <code>light</code>.
             <p>
         </div>
         <div class="col-lg-6">
@@ -199,12 +237,14 @@
           <div id="year_2015_trend">
           </div>
         </div>
-        <div class="col-lg-6 text-right">
+        <div class="col-lg-6 text-left">
           <br/>
           <br/>
           <br/>
           <br/>
-          <p>The spikes in UFO reportings concides with <code>Independence Day Celebrations (4th July)</code> and <code>Missile Testing By Navy in Pacific Ocean ( 7th November 2015)</code>.
+          <p>The spikes in UFO reportings concides with
+            <code>Independence Day Celebrations (4th July)</code> and
+            <code>Missile Testing By Navy in Pacific Ocean ( 7th November 2015)</code>.
             <p>
         </div>
       </div>
@@ -223,7 +263,11 @@
           <br/>
           <br/>
           <br/>
-          <p>Top words reported by people are <code>light</code>, <code>object</code>, <code>round</code> , <code>sight</code> as shown by the word cloud created on top word tokens.
+          <p>Top words reported by people are
+            <code>light</code>,
+            <code>object</code>,
+            <code>round</code> ,
+            <code>sight</code> as shown by the word cloud created on top word tokens.
             <p>
         </div>
         <div class="col-lg-6">
@@ -240,94 +284,112 @@
     </div>
   </section>
 
-
-
   <section id="Dashboard">
-    <div class="container">
+    <div class="container-fluid">
 
       <div class="row">
-        <div class="col-lg-12 text-center">
-          <h2>Dashboard : UFO Reportings</h2>
-          <hr class="star-primary">
+        <div class="col-lg-4 text-left">
+          <h5><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard : UFO Reportings</h4>
+        </div>
+
+        <div class="col-lg-8 text-right pull-right">
+          <div class="dashboard-data-count text-right pull-right">
+            <h5>UFO Reportings:
+              <span>
+                <span class="filter-count"></span>
+                selected out of
+                <span class="total-count"></span>
+                records |
+                <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+              </span>
+              </h4>
+          </div>
         </div>
       </div>
 
-
-      <div class="row dashboard">
-        <div class="dashboard-data-count" style="float: left;">
-          <h4>UFO Reportings:
-            <span>
-              <span class="filter-count"></span>
-              selected out of
-              <span class="total-count"></span>
-              records |
-              <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
-            </span>
-          </h4>
-        </div>
-      </div>
-
-      <div class="row dashboard" margin-left: 5px;>
-        <div  id="us-chart">
-          <h4>Geo Map</h4>
-          Current filter:
-          <span class="filter"></span>
-
-
-          <div class="clearfix"></div>
-        </div>
-      </div>
-
-      <div class="row dashboard" margin-top: 5px;>
-        <div class="span12 pull-right"  id="range-marker">
+      <div class="row">
+        <div class="col-lg-6">
+          <!-- Geo Map -->
+          <div class="panel panel-primary">
+            <div class="panel-heading"> <i class="fa fa-map-marker" aria-hidden="true"></i> State Wise Reportings Counts - Geo Map</div>
+            <div class="panel-body">
+              <div id="us-chart">
+                Current filter:
+                <span class="filter"></span>
+                <div class="clearfix"></div>
+              </div>
+              <div id="range-marker">
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
 
         </div>
+        <div class="col-lg-6">
+          <!-- Duration Column -->
+          <div class="panel panel-primary">
+            <div class="panel-heading"><i class="fa fa-camera-retro" aria-hidden="true"></i> Reportings Counts Per Day</div>
+            <div class="panel-body">
+              <div class='pull-center' id='dashboard-event-date-chart'>
+                <div class="clearfix"></div>
+              </div>
+              <div id="dashboard-event-year-chart" class="pull-center">
+                <div class="clearfix"></div>
+              </div>
+              <br/>
+              <span class="muted pull-right" style="margin-right: 40px;">select a time range to zoom in</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="panel panel-primary">
+                <div class="panel-heading"><i class="fa fa-hourglass-half" aria-hidden="true"></i>  Reportings by Duration</div>
+                <div class="panel-body">
+                  <div id='dashboard-duration-chart'>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="panel panel-primary">
+                <div class="panel-heading"><i class="fa fa-object-group" aria-hidden="true"></i>  Top 5 UFO Shapes</div>
+                <div class="panel-body">
+                  <div id='dashboard-shape-chart'>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-
-      <div class='row dashboard'>
-        <div class='span12 pull-center' id='dashboard-event-date-chart'>
-          <h4>Reportings per day</h4>
-          <div class="clearfix"></div>
+      <div class="row">
+        <div class="panel panel-primary">
+          <div class="panel-heading"><i class="fa fa-user" aria-hidden="true"></i> Top 10 Reportings</div>
+          <div class="panel-body">
+            <table class='table table-hover' id='dashboard-table-graph'>
+              <thead>
+                <tr class='header'>
+                  <th>State</th>
+                  <th>EventDate</th>
+                  <th>Shape</th>
+                  <th>Duration (In Seconds)</th>
+                  <th>Summary</th>
+                </tr>
+              </thead>
+            </table>
+            <div class="clearfix"></div>
+          </div>
         </div>
       </div>
-
-      <div class="row dashboard">
-        <div id="dashboard-event-year-chart" class="pull-center"></div>
-        <br/>
-        <span class="muted pull-right" style="margin-right: 15px;">select a time range to zoom in</span>
-      </div>
-
-      <div class='row dashboard'>
-        <div class='span6 pull-left' id='dashboard-duration-chart'>
-          <h4>Reportings by Duration</h4>
-          <div class="clearfix"></div>
-        </div>
-        <div class='span6 pull-right' id='dashboard-shape-chart'>
-          <h4>Top 5 UFO Shapes</h4>
-          <div class="clearfix"></div>
-        </div>
-      </div>
-
-
-      <div class='row dashboard'>
-        <div class='span12'>
-          <table class='table table-hover' id='dashboard-table-graph'>
-            <thead>
-              <tr class='header'>
-                <th>State</th>
-                <th>EventDate</th>
-                <th>Shape</th>
-                <th>Duration (In Seconds)</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
-
     </div>
-
   </section>
+
+
+
 
 
 
@@ -454,6 +516,7 @@
   <script src="js/ufo/shape_wise_records.js"></script>
   <script src="js/ufo/year_2015_analysis.js"></script>
   <script src="js/ufo/geo_map.js"></script>
+  <script src="js/ufo/geo_map_with_population.js"></script>
   <script src="js/ufo/typed_names.js"></script>
   <script src="js/ufo/dashboard.js"></script>
   <script src="js/ufo/word-cloud.js"></script>

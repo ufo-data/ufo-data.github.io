@@ -10,6 +10,9 @@
   font-weight: normal;
 }
 
+.darkColorFont{
+  color: 'red';
+}
 
 chart_div {
   font: 13px Arial;
@@ -23,6 +26,30 @@ chart_div {
   fill-opacity: .8;
   stroke: #fff;
 }
+
+#geo_map_wise_trend path {
+  stroke: white;
+  stroke-width: 0.25px;
+  fill: grey;
+}
+
+#geo_map_wise_trend_with_population .states {
+  fill: #ccc;
+  stroke: #fff;
+}
+#geo_map_wise_trend_with_population .symbol {
+  fill: steelblue;
+  fill-opacity: .8;
+  stroke: #fff;
+}
+
+#geo_map_wise_trend_with_population path {
+  stroke: white;
+  stroke-width: 0.25px;
+  fill: grey;
+}
+
+
 #Exploration .area {
   fill: lightsteelblue;
   stroke-width: 0;
@@ -33,11 +60,7 @@ chart_div {
 #Exploration .bar:hover {
   fill: brown;
 }
-#geo_map_wise_trend path {
-  stroke: white;
-  stroke-width: 0.25px;
-  fill: grey;
-}
+
 
 #Exploration path {
   stroke: steelblue;
@@ -51,6 +74,11 @@ chart_div {
   fill: grey;
 }*/
 
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
 
 .axis path, .axis line {
   fill: none;
@@ -70,8 +98,8 @@ chart_div {
 div.tooltip {
   position: absolute;
   text-align: center;
-  width: 120px;
-  height: 30px;
+  width: 130px;
+  height: 50px;
   padding: 2px;
   font: 12px sans-serif;
   background: Gold;

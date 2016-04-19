@@ -1,11 +1,15 @@
 (function() {
 
-  var width = 960,
-      height = 500;
+  var width = 600,
+      height = 400;
+
+  var projection = d3.geo.albersUsa()
+      .scale(600)
+      .translate([width / 2, height / 2]);
 
 
+  var path = d3.geo.path().projection(projection);
 
-  var path = d3.geo.path();
 
   var div = d3.select("#TooltipSection").append("div").attr("class", "tooltip").style("opacity", 0);
 
@@ -26,7 +30,7 @@
         .domain([0, d3.max(centroid.features, function(d) {
           return d.properties.records;
         })])
-        .range([0, 15]);
+        .range([0, 10]);
 
 
 
