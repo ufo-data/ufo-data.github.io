@@ -16,7 +16,7 @@
   <link href="http://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.min.css" rel="stylesheet">
   <!-- Custom CSS -->
   <link href="css/freelancer.css" rel="stylesheet">
-
+  <link href="css/introjs.min.css" rel="stylesheet">
   <!-- Custom Fonts -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
   <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -309,11 +309,16 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-lg-4 text-left">
-          <h5><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard : UFO Sightings</h4>
+        <div class="span4 text-left">
+          <h5><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard : UFO Sightings
+         <a class="btn btn-success btn-xs" href="javascript:void(0);" onclick="javascript:introJs().start();"> Click here to take a tour </a>
+       </h5>
+
+
         </div>
 
-        <div class="col-lg-8 text-right pull-right">
+
+        <div class="span8 text-right pull-right" >
           <div class="dashboard-data-count text-right pull-right">
             <h5>UFO Sightings:
               <span>
@@ -329,7 +334,7 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6" data-step="1" data-position='right' data-intro="This is a state wise sighting count geo map. Darker color for a state signifies more sightings in the corresponding state. Click on one or multiple states to set the filter.">
           <!-- Geo Map -->
           <div class="panel panel-primary">
             <div class="panel-heading"> <i class="fa fa-map-marker" aria-hidden="true"></i> State Wise Sightings Counts - Geo Map</div>
@@ -346,9 +351,9 @@
           </div>
 
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6" >
           <!-- Duration Column -->
-          <div class="panel panel-primary">
+          <div class="panel panel-primary" data-step="2" data-position='left' data-intro="This is a trend of total UFO sightings over the period. You can zoom in by selecting the time range. Use the lower range plot for coarse selection and upper range plot for finer selection of timespan.">
             <div class="panel-heading"><i class="fa fa-camera-retro" aria-hidden="true"></i> Sightings Counts Per Day</div>
             <div class="panel-body">
               <div class='pull-center' id='dashboard-event-date-chart'>
@@ -362,7 +367,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6" data-step="3" data-position='left' data-intro="This is a bar plot that shows the distribution of sighting durations (in seconds) for the current selection. You can also filter by duration range.">
               <div class="panel panel-primary">
                 <div class="panel-heading"><i class="fa fa-hourglass-half" aria-hidden="true"></i>  Sightings by Duration</div>
                 <div class="panel-body">
@@ -372,7 +377,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6" data-step="4" data-position='left' data-intro="This is a horizontal bar plot showing top 5 UFO shapes reported. You can further filter the results by selecting one or more shapes.">
               <div class="panel panel-primary">
                 <div class="panel-heading"><i class="fa fa-object-group" aria-hidden="true"></i>  Top 5 UFO Shapes</div>
                 <div class="panel-body">
@@ -388,7 +393,7 @@
       </div>
 
       <div class="row">
-        <div class="panel panel-primary">
+        <div class="panel panel-primary" data-step="5" data-position='top' data-intro="The table shows top 10 sightings (sorted by event date) for the current selection. You can see the event date, reported shape and report summary for each sightings.">
           <div class="panel-heading"><i class="fa fa-user" aria-hidden="true"></i> Top 10 Sightings</div>
           <div class="panel-body">
             <table class='table table-hover' id='dashboard-table-graph'>
@@ -522,6 +527,9 @@
 
   <!-- Custom Theme JavaScript -->
   <script src="js/freelancer.js"></script>
+
+  <!-- Custom Theme JavaScript -->
+  <script src="js/intro/intro.min.js"></script>
 
 
   <!-- Custom Javscripts -->
